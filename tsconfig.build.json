@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": ["@tsconfig/node-lts/tsconfig.json", "@tsconfig/strictest/tsconfig.json", "@tsconfig/esm/tsconfig.json"],
+  "compilerOptions": {
+    "rootDir": "./src/",
+    "typeRoots": [
+      "node_modules/@types",
+      "src/typings"
+    ],
+    "outDir": "dist/",
+    "verbatimModuleSyntax": false,
+    "isolatedModules": false
+  },
+  "include": [
+    "src/scripts/**/main.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/scripts/**/manifest.ts"
+  ],
+  "ts-node": {
+    "esm": true
+  }
+}
