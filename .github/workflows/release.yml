@@ -37,7 +37,7 @@ jobs:
 
       - name: 安装依赖
         id: dependency
-        run: pnpm install --frozen-lockfile
+        run: TS_NODE_SKIP_PREPACK=true pnpm install --frozen-lockfile
 
       - name: 生成
         id: generate
