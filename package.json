@@ -4,7 +4,7 @@
   "description": "存放一些自己用的 JsHook 脚本",
   "type": "module",
   "scripts": {
-    "generate": "tsc --build tsconfig.build.json && ts-node src/generate.ts"
+    "generate": "tsc --build tsconfig.build.json && tsx src/generate.ts"
   },
   "keywords": [],
   "author": {
@@ -18,7 +18,7 @@
     "@tsconfig/node-lts": "^18.12.5",
     "@tsconfig/strictest": "^2.0.2",
     "@types/node": "^18.17.18",
-    "ts-node": "github:TypeStrong/ts-node#main",
+    "tsx": "^3.12.10",
     "typescript": "^5.2.2"
   }
 }

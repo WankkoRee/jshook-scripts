@@ -17,8 +17,5 @@
   "exclude": [
     "node_modules",
     "src/scripts/**/manifest.ts"
-  ],
-  "ts-node": {
-    "esm": true
-  }
+  ]
 }
