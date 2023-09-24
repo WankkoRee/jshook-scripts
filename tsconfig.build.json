@@ -1,14 +1,18 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": ["@tsconfig/node-lts/tsconfig.json", "@tsconfig/strictest/tsconfig.json", "@tsconfig/esm/tsconfig.json"],
+  "extends": ["@tsconfig/recommended/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
   "compilerOptions": {
+    "baseUrl": "./src/",
+    "paths": {
+      "@/*": ["./*"],
+    },
     "rootDir": "./src/",
     "typeRoots": [
       "node_modules/@types",
       "src/typings"
     ],
     "outDir": "dist/",
-    "verbatimModuleSyntax": false,
+    "target": "es2016",
     "isolatedModules": false
   },
   "include": [

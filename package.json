@@ -15,7 +15,8 @@
   "license": "GPL-3.0-only",
   "devDependencies": {
     "@tsconfig/esm": "^1.0.4",
-    "@tsconfig/node-lts": "^18.12.5",
+    "@tsconfig/node18": "^18.2.2",
+    "@tsconfig/recommended": "^1.0.3",
     "@tsconfig/strictest": "^2.0.2",
     "@types/node": "^18.17.18",
     "tsx": "^3.12.10",

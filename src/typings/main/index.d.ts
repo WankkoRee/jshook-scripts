@@ -9,20 +9,10 @@ declare type Main = {
     user_count: number | null,
 }
 
-declare const enum CoreTypeS {
-    rhino = "rhino",
-    frida = "frida",
-}
-
-declare const enum CoreTypeN {
-    rhino = 1,
-    frida = 2,
-}
-
 declare type Manifest = {
     id: string,
     title: string,
-    type: CoreTypeS,
+    type: import("./enum").CoreTypeS,
     desc: string | null,
     markdown: string | null,
     version: string,
