@@ -43,6 +43,10 @@ jobs:
         id: generate
         run: pnpm run generate
 
+      - name: 生成版本号
+        id: version
+        run: echo "VERSION=v`node -p \"require('./package.json').version\"`-ci-`echo ${{ github.sha }} | cut -c -8`" >> $GITHUB_ENV
+
       - name: 推送
         id: push
         uses: nicholasgriffintn/github-branch-deployment-action@1.0.0
@@ -50,4 +54,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: release
           FOLDER: dist
-          MESSAGE: 'release: ({sha}) {msg}'
+          MESSAGE: ${{ env.VERSION }}
+
+      - name: 发布
+        id: release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          target_commitish: release
+          tag_name: ${{ env.VERSION }}
