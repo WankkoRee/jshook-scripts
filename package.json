@@ -4,7 +4,9 @@
   "description": "存放一些自己用的 JsHook 脚本",
   "type": "module",
   "scripts": {
-    "generate": "tsc --build tsconfig.build.json && tsx src/generate.ts"
+    "generate": "pnpm run build && pnpm run manifest",
+    "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "manifest": "tsx src/generate.ts"
   },
   "keywords": [],
   "author": {
@@ -14,12 +16,26 @@
   },
   "license": "GPL-3.0-only",
   "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-typescript": "^7.23.0",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-typescript": "^11.1.4",
     "@tsconfig/esm": "^1.0.4",
     "@tsconfig/node18": "^18.2.2",
-    "@tsconfig/recommended": "^1.0.3",
     "@tsconfig/strictest": "^2.0.2",
+    "@types/babel__core": "^7.20.2",
     "@types/node": "^18.17.18",
-    "tsx": "^3.12.10",
+    "glob": "^10.3.10",
+    "rollup": "^3.29.4",
+    "rollup-plugin-tsconfig-paths": "^1.5.1",
+    "tslib": "^2.6.2",
+    "tsx": "^3.13.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "core-js": "^3.33.0"
   }
 }

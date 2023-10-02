@@ -6,15 +6,14 @@
     "paths": {
       "@/*": ["./*"],
     },
-    "rootDir": "./src/",
     "typeRoots": [
       "node_modules/@types",
       "src/typings"
     ],
-    "outDir": "dist/",
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "rollup.config.ts"
   ],
   "exclude": [
     "node_modules"

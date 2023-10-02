@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import {globSync} from "glob";
 
 const root = 'https://github.com/WankkoRee/jshook-scripts/raw/';
 
@@ -15,7 +16,9 @@ const main: Main = {
 
 await fs.writeFile('dist/main.json', JSON.stringify(main));
 
-await fs.writeFile('dist/index.json', JSON.stringify(await Promise.all((await fs.readdir('src/scripts/')).map(async (dirname) => {
+await fs.writeFile('dist/index.json', JSON.stringify(await Promise.all(globSync('*/', {
+    cwd: 'src/scripts/',
+}).map(async (dirname) => {
     const { manifest }: {manifest: Manifest} = await import('./scripts/'+dirname+'/manifest.ts');
     if (manifest.markdown)
         manifest.markdown = root + 'master/src/scripts/' + dirname + '/' + manifest.markdown;
