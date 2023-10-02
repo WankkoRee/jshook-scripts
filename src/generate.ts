@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import {globSync} from "glob";
 
-const root = 'https://github.com/WankkoRee/jshook-scripts/raw/';
+const root = 'https://cdn.jsdelivr.net/gh/WankkoRee/jshook-scripts@';
 
 const main: Main = {
     "name": "Wankko Ree 的自用 JsHook 脚本仓库",
@@ -26,7 +26,7 @@ await fs.writeFile('dist/index.json', JSON.stringify(await Promise.all(globSync(
         ...manifest,
         author: "Wankko Ree",
         source: root + "master/src/scripts/" + dirname+'/main.ts',
-        url: root + "release/scripts/" + dirname + '/main.js',
+        url: root + "latest/scripts/" + dirname + '/main.js',
         down_count: null,
     }
     return manifestDist;
