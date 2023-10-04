@@ -45,7 +45,7 @@ jobs:
 
       - name: 生成版本号
         id: version
-        run: echo "VERSION=v`node -p \"require('./package.json').version\"`-ci-`echo ${{ github.sha }} | cut -c -8`" >> $GITHUB_ENV
+        run: echo "VERSION=v`node -p \"require('./package.json').version\"`-ci-`git rev-list --count master`-`echo ${{ github.sha }} | cut -c -8`" >> $GITHUB_ENV
 
       - name: 推送
         id: push
