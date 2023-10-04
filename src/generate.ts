@@ -26,7 +26,7 @@ await fs.writeFile('dist/index.json', JSON.stringify(await Promise.all(globSync(
         ...manifest,
         author: "Wankko Ree",
         source: root + "master/src/scripts/" + dirname+'/main.ts',
-        url: root + "latest/scripts/" + dirname + '/main.js',
+        url: root + "release/scripts/" + dirname + '/main.js',
         down_count: null,
     }
     return manifestDist;
