@@ -28,6 +28,7 @@
     "@tsconfig/strictest": "^2.0.2",
     "@types/babel__core": "^7.20.2",
     "@types/node": "^18.17.18",
+    "axios": "^1.5.1",
     "glob": "^10.3.10",
     "rollup": "^3.29.4",
     "rollup-plugin-tsconfig-paths": "^1.5.1",

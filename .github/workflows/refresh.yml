@@ -1,0 +1,50 @@
+name: refresh CI
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    name: 打包任务
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取仓库代码
+        id: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 配置 pnpm
+        id: pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 配置 Node.js
+        id: nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: 安装依赖
+        id: dependency
+        run: pnpm install --frozen-lockfile
+
+      - name: 生成
+        id: generate
+        run: pnpm run generate
+
+      - name: 生成版本号
+        id: version
+        run: echo "VERSION=v`node -p \"require('./package.json').version\"`-ci-`echo ${{ github.sha }} | cut -c -8`" >> $GITHUB_ENV
+
+      - name: 推送
+        id: push
+        uses: nicholasgriffintn/github-branch-deployment-action@1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: release
+          FOLDER: dist
+          MESSAGE: "`${{ env.VERSION }}` ci: 每日同步下载统计数据"
