@@ -47,7 +47,7 @@ async function generate() {
 
     const main: Main = {
         name: "Wankko Ree 的自用 JsHook 脚本仓库",
-        icon: null,
+        icon: "https://github.com/WankkoRee.png",
         list: `${releaseRoot}${indexFile}`,
         push: null,
         markdown: `${srcRoot}${docFile}`,
