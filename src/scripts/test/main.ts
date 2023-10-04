@@ -1,79 +1,34 @@
-import {CoreTypeN} from "@/typings/main/enum";
+// console.log("aes/aes: ", JSON.stringify(crypto.encrypt("qwerqwerqwerqwer", "abc", EncType.CRYPTO_AES, Transformation.AES_CBC_PKCS5Padding)));
+// console.log("des/aes: ", JSON.stringify(crypto.encrypt("qwerqwerqwerqwer", "abc", EncType.CRYPTO_DES, Transformation.AES_CBC_PKCS5Padding)));
+// console.log("aes/des: ", JSON.stringify(crypto.encrypt("qwerqwerqwerqwer", "abc", EncType.CRYPTO_AES, Transformation.DES_CBC_PKCS5Padding)));
+// console.log("des/des: ", JSON.stringify(crypto.encrypt("qwerqwerqwerqwer", "abc", EncType.CRYPTO_DES, Transformation.DES_CBC_PKCS5Padding)));
 
-console.log(runtime.appInfo);
-console.log(runtime.classLoader);
-console.warn(runtime.coreType === CoreTypeN.rhino);
+import {type} from "@/utils/utils";
+// import {EncType, Transformation} from "@/typings/jshook/crypto/enum";
 
-console.log('es2016');
+// const encrypt = crypto.encrypt("abcdefghijklmnop", "123", EncType.CRYPTO_AES, Transformation.AES_CBC_PKCS5Padding);
+// console.log(`encrypt: ${type(encrypt)} = ${encrypt}`);
 
-var array1 = [1, 2, 3];
+// const encryptBytes = crypto.encryptBytes([0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,0x70], [0x31,0x32,0x33], EncType.CRYPTO_AES, Transformation.AES_CBC_PKCS5Padding);
+// console.log(`encryptBytes: ${type(encryptBytes)} = ${encryptBytes}`);
 
-console.log(array1.includes(2));
-// expected output: true
+// const decrypt = crypto.decrypt("abcdefghijklmnop", encrypt, EncType.CRYPTO_AES, Transformation.AES_CBC_PKCS5Padding);
+// console.log(`decrypt: ${type(decrypt)} = ${decrypt}`);
 
-var pets = ['cat', 'dog', 'bat'];
+// const decryptBytes = crypto.decryptBytes([0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,0x70], encryptBytes, EncType.CRYPTO_AES, Transformation.AES_CBC_PKCS5Padding);
+// console.log(`decryptBytes: ${type(decryptBytes)} = ${decryptBytes}`);
 
-console.log(pets.includes('cat'));
-// expected output: true
+const rc4Encrypt = crypto.rc4Encrypt("abcd", "123");
+console.log(`rc4Encrypt: ${type(rc4Encrypt)} = ${rc4Encrypt}`);
 
-console.log(pets.includes('at'));
-// expected output: false
+const rc4Decrypt = crypto.rc4Decrypt("abcd", rc4Encrypt);
+console.log(`rc4Decrypt: ${type(rc4Decrypt)} = ${rc4Decrypt}`);
 
+const rc4EncryptBytes = crypto.rc4EncryptBytes([0x61,0x62,0x63,0x64,0x65,0x66], [0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38]);
+console.log(`rc4EncryptBytes: ${type(rc4EncryptBytes)} = ${rc4EncryptBytes.map(v => v)}`);
 
-console.log('es2017');
+const rc4DecryptBytes = crypto.rc4DecryptBytes([0x61,0x62,0x63,0x64,0x65,0x66], rc4EncryptBytes);
+console.log(`rc4DecryptBytes: ${type(rc4DecryptBytes)} = ${rc4DecryptBytes.map(v => v)}`);
 
-var obj = { foo: 'bar', baz: 42 };
-console.log(Object.values(obj)); // ['bar', 42]
-
-// array like object
-var obj1 = { 0: 'a', 1: 'b', 2: 'c' };
-console.log(Object.values(obj1)); // ['a', 'b', 'c']
-
-// array like object with random key ordering
-// when we use numeric keys, the value returned in a numerical order according to the keys
-var an_obj = { 100: 'a', 2: 'b', 7: 'c' };
-console.log(Object.values(an_obj)); // ['b', 'c', 'a']
-
-// getFoo is property which isn't enumerable
-var my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; } } });
-my_obj.foo = 'bar';
-console.log(Object.values(my_obj)); // ['bar']
-
-// non-object argument will be coerced to an object
-console.log(Object.values('foo')); // ['f', 'o', 'o']
-
-const obj3 = { foo: 'bar', baz: 42 };
-console.log(Object.entries(obj3)); // [ ['foo', 'bar'], ['baz', 42] ]
-
-// array like object
-const obj4 = { 0: 'a', 1: 'b', 2: 'c' };
-console.log(Object.entries(obj4)); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
-
-// array like object with random key ordering
-const anObj = { 100: 'a', 2: 'b', 7: 'c' };
-console.log(Object.entries(anObj)); // [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
-
-// getFoo is property which isn't enumerable
-const myObj = Object.create({}, { getFoo: { value() { return this.foo; } } });
-myObj.foo = 'bar';
-console.log(Object.entries(myObj)); // [ ['foo', 'bar'] ]
-
-// non-object argument will be coerced to an object
-console.log(Object.entries('foo')); // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
-
-// iterate through key-value gracefully
-const obj2 = { a: 5, b: 7, c: 9 };
-for (const [key, value] of Object.entries(obj2)) {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-}
-
-// Or, using array extras
-Object.entries(obj2).forEach(([key, value]) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
-
-console.log('abc'.padStart(10));         // "       abc"
-console.log('abc'.padStart(10, "foo"));  // "foofoofabc"
-console.log('abc'.padStart(6,"123465")); // "123abc"
-console.log('abc'.padStart(8, "0"));     // "00000abc"
-console.log('abc'.padStart(1));          // "abc"
+const rc4EncryptBytesAgain = crypto.rc4EncryptBytes([0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68], rc4EncryptBytes);
+console.log(`rc4EncryptBytesAgain: ${type(rc4EncryptBytesAgain)} = ${rc4EncryptBytesAgain.map(v => v)}`);

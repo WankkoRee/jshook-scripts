@@ -5,17 +5,17 @@ declare const runtime: {
     /**
      * 获取当前注入的脚本内容，注意，如果是加密脚本，获取的不会是解密后的文本
      */
-    jsContent: string,
-    appInfo: unknown, // ApplicationInfo,
-    packageName: string,
-    classLoader: unknown, // ClassLoader,
-    isFirstApplication: boolean,
+    jsContent: java_lang_String,
+    appInfo: android_content_pm_ApplicationInfo,
+    packageName: java_lang_String,
+    classLoader: java_lang_ClassLoader,
+    isFirstApplication: java_boolean,
     /**
      * 获取当前jshook的版本号
      */
-    coreVersionCode: number,
+    coreVersionCode: java_int,
     /**
      * 获取当前注入的类型(1:rhino 2:frida)
      */
-    coreType: CoreTypeN,
+    coreType: import("@/typings/main/enum").CoreTypeN,
 };

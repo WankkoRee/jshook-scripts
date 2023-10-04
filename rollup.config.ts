@@ -10,7 +10,6 @@ import path from 'node:path';
 const cwd = process.cwd();
 
 const config: RollupOptions = {
-    input: globSync('src/scripts/**/main.ts'),
     output: {
         dir: 'dist',
         format: 'cjs',
@@ -36,4 +35,9 @@ const config: RollupOptions = {
     ]
 };
 
-export default config;
+export default globSync('src/scripts/**/main.ts').map((input) => {
+    return {
+        ...config,
+        input,
+    };
+});

@@ -1,23 +1,23 @@
 // 简易调用的全局函数
 
-declare function toast(message: string): void;
+declare function toast(message: rhino_string): void;
 
-declare function alert(message: string): void;
+declare function alert(message: rhino_string): void;
 
-declare function confirm(message: string, callback: { ok?: Function, cancel?: Function }): void;
+declare function confirm(message: rhino_string, callback: { ok?: Function, cancel?: Function }): void;
 
 /**
  * 返回32位小写uuid
  */
-declare function uuid(): string;
+declare function uuid(): java_lang_String;
 
-type TimeoutId = string;
+type TimeoutId = number;
 
 /**
  * 一次性定时任务
  * @param callback 触发函数
  * @param time 时长, 毫秒
- * @return TimeoutId 事件标识
+ * @returns TimeoutId 事件标识
  */
 declare function setTimeout(callback: Function, time: number): TimeoutId;
 
@@ -27,13 +27,13 @@ declare function setTimeout(callback: Function, time: number): TimeoutId;
  */
 declare function clearTimeout(id: TimeoutId): void;
 
-type IntervalId = string;
+type IntervalId = number;
 
 /**
  * 周期性定时任务
  * @param callback 触发函数
  * @param time 时长, 毫秒
- * @return IntervalId 事件标识
+ * @returns IntervalId 事件标识
  */
 declare function setInterval(callback: Function, time: number): IntervalId;
 
