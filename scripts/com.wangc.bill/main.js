@@ -1239,6 +1239,10 @@ $({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
   }
 });
 
+var java_lang_Integer = Packages.java.lang.Integer;
+
+var java_lang_Boolean = Packages.java.lang.Boolean;
+
 var packageName = "com.wangc.bill";
 (() => {
   if (!runtime.packageName.equals(packageName)) {
@@ -1267,12 +1271,12 @@ var packageName = "com.wangc.bill";
             // }));
             XposedBridge.hookAllMethods(XposedHelpers.findClass("".concat(packageName, ".http.entity.User"), runtime.classLoader), "isVip", XC_MethodHook({
               afterHookedMethod: function afterHookedMethod(param) {
-                param.setResult(true);
+                param.setResult(new java_lang_Boolean(true));
               }
             }));
             XposedBridge.hookAllMethods(XposedHelpers.findClass("".concat(packageName, ".http.entity.User"), runtime.classLoader), "getVipType", XC_MethodHook({
               afterHookedMethod: function afterHookedMethod(param) {
-                param.setResult(2);
+                param.setResult(new java_lang_Integer(2));
               }
             }));
           }
