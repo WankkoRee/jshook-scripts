@@ -9,17 +9,15 @@ const packageName = "com.wangc.bill";
         return;
     }
 
-    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.application.MyApplication`, runtime.classLoader), "onCreate", XC_MethodHook({
+    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.application.MyApplication`, runtime.classLoader), "onCreate", XC_MethodHook<android_app_Application, void>({
         beforeHookedMethod: function (param) {
-            const application = param.thisObject!;
+            const application = param.thisObject;
             const context = application.getApplicationContext();
             const packageManager = context.getPackageManager();
             const packageName = context.getPackageName();
             const packageInfo = packageManager.getPackageInfo(packageName, 0);
 
-            const test: java_lang_Throwable
-
-            switch (packageInfo.versionCode) {
+            switch (packageInfo.getLongVersionCode()) {
                 case 244: {
                     // XposedBridge.hookAllConstructors(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), XC_MethodHook({
                     //     afterHookedMethod: function (param) {

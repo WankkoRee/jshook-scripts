@@ -6,7 +6,8 @@
   "scripts": {
     "generate": "pnpm run build && pnpm run manifest",
     "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
-    "manifest": "tsx src/generate.ts"
+    "manifest": "tsx src/generate.ts",
+    "test": "tsc --noEmit"
   },
   "keywords": [],
   "author": {
