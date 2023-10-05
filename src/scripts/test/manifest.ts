@@ -5,7 +5,6 @@ export const manifest: Manifest = {
     title: "测试脚本",
     type: CoreTypeS.rhino,
     desc: "测试用的",
-    markdown: null,
     version: "1",
     ctime: "2023-09-18",
 }

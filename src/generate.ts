@@ -62,12 +62,11 @@ async function generate() {
         cwd: 'src/scripts/',
     }).map(async (dirname) => {
         const {manifest}: { manifest: Manifest } = await import(`@/scripts/${dirname}/manifest.ts`);
-        if (manifest.markdown)
-            manifest.markdown = `${srcRoot}/src/scripts/${dirname}/${manifest.markdown}`;
         const manifestDist: DistManifest = {
             ...manifest,
             author: "Wankko Ree",
-            source: `${srcRoot}/src/scripts/${dirname}${srcEntry}`,
+            markdown: `${srcRoot}/src/scripts/${dirname}${docFile}`,
+            source: `https://github.com/${repo}/blob/master/src/scripts/${dirname}${srcEntry}`,
             url: `${releaseRoot}/scripts/${dirname}${releaseEntry}`,
             down_count: jsDelivrFileStats.find(({name}) => name === `/scripts/${dirname}${releaseEntry}`)?.hits.total ?? 0,
         }

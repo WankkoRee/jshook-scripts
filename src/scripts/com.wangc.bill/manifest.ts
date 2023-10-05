@@ -5,7 +5,6 @@ export const manifest: Manifest = {
     title: "一木记账",
     type: CoreTypeS.rhino,
     desc: "装作自己有永久会员",
-    markdown: null,
     version: "1",
     ctime: "2023-10-04",
 }

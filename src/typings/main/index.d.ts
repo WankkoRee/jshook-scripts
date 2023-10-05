@@ -14,13 +14,13 @@ declare type Manifest = {
     title: string,
     type: import("./enum").CoreTypeS,
     desc: string | null,
-    markdown: string | null,
     version: string,
     ctime: string,
 }
 
 declare type DistManifest = Manifest & {
     author: string,
+    markdown: string | null,
     source: string | null,
     url: string,
     down_count: number | null,
