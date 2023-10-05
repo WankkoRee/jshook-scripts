@@ -1,27 +1,30 @@
-declare class XposedBridge {
+/**
+ * https://api.xposed.info/reference/de/robv/android/xposed/XposedBridge.html
+ */
+declare class XposedBridge implements java_lang_Object {
     /**
      * The system class loader which can be used to locate Android framework classes.
      * Application classes cannot be retrieved from it.
      */
-    static BOOTCLASSLOADER: ClassLoader;
+    static BOOTCLASSLOADER: java_lang_ClassLoader;
     /**
      * @deprecated
      * This field was deprecated in API level 65.
      * Use {@link getXposedVersion getXposedVersion()} instead.
      */
-    static XPOSED_BRIDGE_VERSION: number;
+    static XPOSED_BRIDGE_VERSION: java_int;
     /**
      * Returns the currently installed version of the Xposed framework.
      */
-    static getXposedVersion: () => number;
+    static getXposedVersion(): java_int;
     /**
      * Hook all constructors of the specified class.
      *
      * @param hookClass The class to check for constructors.
      * @param callback The callback to be executed when the hooked constructors are called.
-     * @returns unhooks A set containing one object for each found constructor which can be used to unhook it.
+     * @returns A set containing one object for each found constructor which can be used to unhook it.
      */
-    static hookAllConstructors: (hookClass: Class, callback: XC_MethodHook) => Set<XC_MethodHook.Unhook>;
+    static hookAllConstructors(hookClass: java_lang_Class, callback: XC_MethodHook): Set<typeof XC_MethodHook.Unhook.prototype>;
     /**
      * Hooks all methods with a certain name that were declared in the specified class.
      * Inherited methods and constructors are not considered. For constructors, use {@link hookAllConstructors hookAllConstructors(Class, XC_MethodHook)} instead.
@@ -29,18 +32,18 @@ declare class XposedBridge {
      * @param hookClass The class to check for declared methods.
      * @param methodName The name of the method(s) to hook.
      * @param callback The callback to be executed when the hooked methods are called.
-     * @returns unhooks A set containing one object for each found method which can be used to unhook it.
+     * @returns A set containing one object for each found method which can be used to unhook it.
      */
-    static hookAllMethods: (hookClass: Class, methodName: string, callback: XC_MethodHook) => Set<XC_MethodHook.Unhook>;
+    static hookAllMethods(hookClass: java_lang_Class, methodName: rhino_string, callback: XC_MethodHook): Set<typeof XC_MethodHook.Unhook.prototype>;
     /**
      * Hook any method (or constructor) with the specified callback.
      * See below for some wrappers that make it easier to find a method/constructor in one step.
      *
      * @param hookMethod The method to be hooked.
      * @param callback The callback to be executed when the hooked method is called.
-     * @returns unhooks An object that can be used to remove the hook.
+     * @returns An object that can be used to remove the hook.
      */
-    static hookMethod: (hookMethod: Member, callback: XC_MethodHook) => Set<XC_MethodHook.Unhook>;
+    static hookMethod(hookMethod: java_lang_reflect_Member, callback: XC_MethodHook): Set<typeof XC_MethodHook.Unhook.prototype>;
     /**
      * Basically the same as {@link http://developer.android.com/reference/java/lang/reflect/Method.html#invoke(java.lang.Object,%20java.lang.Object...) Method.invoke(Object, Object...)}, but calls the original method as it was before the interception by Xposed.
      * Also, access permissions are not checked.
@@ -56,13 +59,11 @@ declare class XposedBridge {
      * @param method The method to be called.
      * @param thisObject For non-static calls, the "this" pointer, otherwise `null`.
      * @param args Arguments for the method call as Object[] array.
-     * @returns object The result returned from the invoked method.
+     * @returns The result returned from the invoked method.
      */
-    static invokeOriginalMethod: (method: Member, thisObject: Object, args: Object[]) => Object;
+    static invokeOriginalMethod(method: java_lang_reflect_Member, thisObject: java_lang_Object, args: java_lang_Object[]): java_lang_Object;
     /**
      * Writes a message to the Xposed error log.
-     *
-     * Logs a stack trace to the Xposed error log.
      *
      * @remarks
      * **!!!Danger!!!**
@@ -70,9 +71,19 @@ declare class XposedBridge {
      * **DON'T FLOOD THE LOG!!!** This is only meant for error logging. If you want to write information/debug messages, use logcat.
      *
      * @param text The log message.
+     */
+    static log(text: rhino_string): void;
+    /**
+     * Logs a stack trace to the Xposed error log.
+     *
+     * @remarks
+     * **!!!Danger!!!**
+     *
+     * **DON'T FLOOD THE LOG!!!** This is only meant for error logging. If you want to write information/debug messages, use logcat.
+     *
      * @param t The Throwable object for the stack trace.
      */
-    static log: (text: string | Throwable) => void;
+    static log(t: java_lang_Throwable): void;
     /**
      * Removes the callback for a hooked method/constructor.
      *
@@ -81,5 +92,5 @@ declare class XposedBridge {
      * Use {@link XC_MethodHook.Unhook.unhook XC_MethodHook.Unhook.unhook()} instead.
      * An instance of the `Unhook` class is returned when you hook the method.
      */
-    static unhookMethod: (hookMethod: Member, callback: XC_MethodHook) => void;
+    static unhookMethod(hookMethod: java_lang_reflect_Member, callback: XC_MethodHook): void;
 }

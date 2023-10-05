@@ -11,11 +11,13 @@ const packageName = "com.wangc.bill";
 
     XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.application.MyApplication`, runtime.classLoader), "onCreate", XC_MethodHook({
         beforeHookedMethod: function (param) {
-            const application = param.thisObject;
+            const application = param.thisObject!;
             const context = application.getApplicationContext();
             const packageManager = context.getPackageManager();
             const packageName = context.getPackageName();
             const packageInfo = packageManager.getPackageInfo(packageName, 0);
+
+            const test: java_lang_Throwable
 
             switch (packageInfo.versionCode) {
                 case 244: {
