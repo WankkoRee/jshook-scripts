@@ -1,1 +1,1 @@
-export const android_graphics_Bitmap = android.graphics.Bitmap;
+export const android_graphics_Bitmap = Packages.android.graphics.Bitmap;

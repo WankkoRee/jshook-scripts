@@ -1,1 +1,1 @@
-export const java_lang_ClassLoader = java.lang.ClassLoader;
+export const java_lang_ClassLoader = Packages.java.lang.ClassLoader;

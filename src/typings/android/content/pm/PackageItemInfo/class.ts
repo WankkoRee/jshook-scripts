@@ -1,1 +1,1 @@
-export const android_content_pm_PackageItemInfo = android.content.pm.PackageItemInfo;
+export const android_content_pm_PackageItemInfo = Packages.android.content.pm.PackageItemInfo;

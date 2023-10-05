@@ -1,1 +1,1 @@
-export const java_lang_Byte = java.lang.Byte;
+export const java_lang_Byte = Packages.java.lang.Byte;

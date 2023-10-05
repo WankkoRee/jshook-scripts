@@ -1,1 +1,1 @@
-export const android_app_Activity = android.app.Activity;
+export const android_app_Activity = Packages.android.app.Activity;

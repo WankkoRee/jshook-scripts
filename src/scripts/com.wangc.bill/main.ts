@@ -1,3 +1,6 @@
+import {java_lang_Integer} from "@/typings/java/lang/Integer/class";
+import {java_lang_Boolean} from "@/typings/java/lang/Boolean/class";
+
 const packageName = "com.wangc.bill";
 
 (() => {
@@ -28,12 +31,12 @@ const packageName = "com.wangc.bill";
                     // }));
                     XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), "isVip", XC_MethodHook({
                         afterHookedMethod: function (param) {
-                            param.setResult(true);
+                            param.setResult(new java_lang_Boolean(true));
                         }
                     }));
                     XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), "getVipType", XC_MethodHook({
                         afterHookedMethod: function (param) {
-                            param.setResult(2);
+                            param.setResult(new java_lang_Integer(2));
                         }
                     }));
                 }

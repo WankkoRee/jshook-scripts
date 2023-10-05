@@ -1,3 +1,2 @@
-// import './content';
-
-declare type Byte = number
+import './content';
+import './graphics';
