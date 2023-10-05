@@ -1,5 +1,5 @@
 import {java_lang_Integer} from "@/typings/java/lang/Integer/class";
-import {java_lang_Boolean} from "@/typings/java/lang/Boolean/class";
+import {java_lang_Long} from "@/typings/java/lang/Long/class";
 
 const packageName = "com.wangc.bill";
 
@@ -18,31 +18,41 @@ const packageName = "com.wangc.bill";
             const packageInfo = packageManager.getPackageInfo(packageName, 0);
 
             switch (packageInfo.getLongVersionCode()) {
-                case 244: {
-                    // XposedBridge.hookAllConstructors(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), XC_MethodHook({
-                    //     afterHookedMethod: function (param) {
-                    //         XposedHelpers.setObjectField(param.thisObject, 'vipType', 2);
-                    //     }
-                    // }));
-                    // XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), "setVipType", XC_MethodHook({
-                    //     afterHookedMethod: function (param) {
-                    //         XposedHelpers.setObjectField(param.thisObject, 'vipType', 2);
-                    //     }
-                    // }));
-                    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), "isVip", XC_MethodHook({
-                        afterHookedMethod: function (param) {
-                            param.setResult(new java_lang_Boolean(true));
-                        }
-                    }));
-                    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.entity.User`, runtime.classLoader), "getVipType", XC_MethodHook({
-                        afterHookedMethod: function (param) {
-                            param.setResult(new java_lang_Integer(2));
-                        }
-                    }));
-                }
-                break;
                 default: {
                     console.warn(`目标应用版本未验证, 脚本可能无效: ${packageInfo.versionName}[${packageInfo.versionCode}]`);
+                }
+                case 244: {
+                    let vipType = new java_lang_Integer(-1);
+                    let vipTime = new java_lang_Long(0);
+
+                    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.protocol.CommonBaseJson`, runtime.classLoader), "getResult", XC_MethodHook({
+                        afterHookedMethod: function (param) {
+                            const resp = param.getResult()!;
+                            if (resp.getClass().getTypeName().equals(`${packageName}.http.entity.User`)) {
+                                vipType = XposedHelpers.getObjectField(resp, 'vipType');
+                                vipTime = XposedHelpers.getObjectField(resp, 'vipTime');
+                                if (vipType.equals(new java_lang_Integer(0)) || vipType.equals(new java_lang_Integer(1)) && vipTime < new java_lang_Long(new Date().valueOf())) {
+                                    XposedHelpers.setObjectField(resp, 'vipType', new java_lang_Integer(2));
+                                    console.log("拦截网络响应, 设置为假永久会员");
+                                } else {
+                                    console.log("已是会员, 不作设置");
+                                }
+                            }
+                        },
+                    }));
+
+                    const interruptCheck = XC_MethodHook({
+                        beforeHookedMethod: function (param) {
+                            if (vipType.equals(new java_lang_Integer(-1))) { // 初始化时过检测
+                                param.setResult(null);
+                            } else if (vipType.equals(new java_lang_Integer(0)) || vipType.equals(new java_lang_Integer(1)) && vipTime < new java_lang_Long(new Date().valueOf())) {
+                                param.setResult(null);
+                                console.log("拦截网络响应, 假永久会员时不使用联网功能");
+                            }
+                        },
+                    })
+                    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.HttpManager`, runtime.classLoader), 'getOcrToken', interruptCheck);
+                    XposedBridge.hookAllMethods(XposedHelpers.findClass(`${packageName}.http.HttpManager`, runtime.classLoader), 'getSpeechToken', interruptCheck);
                 }
                 break;
             }
