@@ -21,6 +21,13 @@ const packageName = "com.wangc.bill";
                 default: {
                     console.warn(`目标应用版本未验证, 脚本可能无效: ${packageInfo.versionName}[${packageInfo.versionCode}]`);
                 }
+                case 251:
+                case 250:
+                case 249:
+                case 248:
+                case 247:
+                case 246:
+                // case 245: // 无此版本
                 case 244: {
                     let vipType = new java_lang_Integer(-1);
                     let vipTime = new java_lang_Long(0);
