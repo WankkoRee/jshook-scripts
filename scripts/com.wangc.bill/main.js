@@ -1261,6 +1261,13 @@ var packageName = "com.wangc.bill";
           {
             console.warn("\u76EE\u6807\u5E94\u7528\u7248\u672C\u672A\u9A8C\u8BC1, \u811A\u672C\u53EF\u80FD\u65E0\u6548: ".concat(packageInfo.versionName, "[").concat(packageInfo.versionCode, "]"));
           }
+        case 251:
+        case 250:
+        case 249:
+        case 248:
+        case 247:
+        case 246:
+        // case 245: // 无此版本
         case 244:
           {
             var vipType = new java_lang_Integer(-1);
