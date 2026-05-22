@@ -42,7 +42,7 @@ jobs:
 
       - name: 推送
         id: push
-        uses: nicholasgriffintn/github-branch-deployment-action@1.0.0
+        uses: nicholasgriffintn/github-branch-deployment-action@ef2d2d3c3226ebffddaf1c8041c4e9f31ecb0068 # 1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: release
